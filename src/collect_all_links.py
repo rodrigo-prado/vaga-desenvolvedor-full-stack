@@ -6,8 +6,11 @@ import requests
 from bs4 import BeautifulSoup
 from validator_collection import checkers
 
-def get_list_of_all_links(web_link):
-    if (checkers.is_url(web_link)):
+def get_list_of_all_links(web_link, history_links):
+    if (checkers.is_url(web_link) and web_link not in history_links):
+        # Add the link to the history
+        history_links.append(web_link)
+
         page = requests.get(web_link)
         soup = BeautifulSoup(page.content, 'html.parser')
 
@@ -20,7 +23,7 @@ def get_list_of_all_links(web_link):
 
         # Get links from referenced links
         for link in href_links:
-            get_list_of_all_links(link)
+            get_list_of_all_links(link, history_links)
 
 
 if __name__ == '__main__':
@@ -33,4 +36,5 @@ if __name__ == '__main__':
     arg = parser.parse_args()
     print('Initial web link:', arg.web_link)
 
-    get_list_of_all_links(arg.web_link)
+    history_links = []
+    get_list_of_all_links(arg.web_link, history_links)
