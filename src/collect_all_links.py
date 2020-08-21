@@ -4,6 +4,24 @@ import argparse
 
 import requests
 from bs4 import BeautifulSoup
+from validator_collection import checkers
+
+def get_list_of_all_links(web_link):
+    if (checkers.is_url(web_link)):
+        page = requests.get(web_link)
+        soup = BeautifulSoup(page.content, 'html.parser')
+
+        # Get all links
+        href_links = [href.get('href') for href in soup.find_all('a')]
+
+        # Print all links found
+        for link in href_links:
+            print(link)
+
+        # Get links from referenced links
+        for link in href_links:
+            get_list_of_all_links(link)
+
 
 if __name__ == '__main__':
     # Parse command-line arguments
@@ -15,8 +33,4 @@ if __name__ == '__main__':
     arg = parser.parse_args()
     print('Initial web link:', arg.web_link)
 
-    # Get list of all links
-    page = requests.get(arg.web_link)
-    soup = BeautifulSoup(page.content, 'html.parser')
-    for link in soup.find_all('a'):
-        print(link.get('href'))
+    get_list_of_all_links(arg.web_link)
