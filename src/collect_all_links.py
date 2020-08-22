@@ -50,10 +50,6 @@ if __name__ == '__main__':
     arg = parser.parse_args()
     print('Initial web link:', arg.web_link)
 
-    # conn = psycopg2.connect(host="172.17.0.2",
-    #                         database="postgres",
-    #                         user="postgres",
-    #                         password="postgres")
     if (verify_connection()):
         print('Database connection is OKay!')
         history_links = []
