@@ -5,7 +5,7 @@ import psycopg2
 import requests
 from bs4 import BeautifulSoup
 from validator_collection import checkers
-from database import verify_connection
+from database import verify_connection, delete_records
 
 def get_list_of_all_links(web_link, history_links, max_links):
     """
@@ -52,6 +52,7 @@ if __name__ == '__main__':
 
     if (verify_connection()):
         print('Database connection is OKay!')
+        delete_records()
         history_links = []
         get_list_of_all_links(arg.web_link, history_links, arg.max_links)
     else:
