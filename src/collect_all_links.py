@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 from validator_collection import checkers
 from database import verify_connection, delete_records, insert_link, get_next_not_tracked_link, \
-    mark_link_as_tracked, get_number_of_stored_links
+    mark_link_as_tracked, get_number_of_stored_links, get_links
 
 def get_next_web_url():
     """
