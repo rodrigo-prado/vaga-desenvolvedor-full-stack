@@ -71,3 +71,9 @@ if __name__ == '__main__':
         # Check if the number of stored link is bigger then limit; if yes break the loop
         if get_number_of_stored_links() >= arg.limit:
             break
+
+    print()
+    print('### Printing all link stored ###')
+    print()
+    for link in get_links():
+        print(link)
