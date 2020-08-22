@@ -45,6 +45,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     # Initializing link table
+    print(f'When the number of links reach or pass {arg.limit}, stop the search for links.')
     print('Deleting old records.')
     delete_records()
     print('Inserting initial web link:', arg.web_link)
