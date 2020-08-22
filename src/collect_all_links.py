@@ -52,8 +52,6 @@ if __name__ == '__main__':
     insert_link(arg.web_link)
 
     web_link = get_next_web_url()
-    print(web_link)
-    # history_links = []
     while web_link is not None:
         page = requests.get(web_link)
         soup = BeautifulSoup(page.content, 'html.parser')
