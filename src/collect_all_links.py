@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from validator_collection import checkers
 from database import verify_connection, delete_records, insert_link, get_next_not_tracked_link, \
     mark_link_as_tracked, get_number_of_stored_links, get_links
+from requests.exceptions import ConnectionError
 
 def get_next_web_url():
     """
@@ -53,17 +54,20 @@ if __name__ == '__main__':
 
     web_link = get_next_web_url()
     while web_link is not None:
-        page = requests.get(web_link)
-        soup = BeautifulSoup(page.content, 'html.parser')
+        try:
+            page = requests.get(web_link)
+            soup = BeautifulSoup(page.content, 'html.parser')
 
-        # Get all links
-        href_links = [href.get('href') for href in soup.find_all('a')]
+            # Get all links
+            href_links = [href.get('href') for href in soup.find_all('a')]
 
-        for link in href_links:
-            if checkers.is_url(link):
-                link_id = insert_link(link)
-                if link_id is not None:
-                    print('Web link:', link, 'inserted')
+            for link in href_links:
+                if checkers.is_url(link):
+                    link_id = insert_link(link)
+                    if link_id is not None:
+                        print('Web link:', link, 'inserted')
+        except ConnectionError:
+            print(f'Could not access the web link ({web_link}).')
 
         # Get next link to collect new links
         web_link = get_next_web_url()
