@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[requires]
+python_version = "3.8"
+
+[dev-packages]
+autopep8 = "*"
+flake8 = "*"
+
+[packages]
+BeautifulSoup4 = "*"
+requests = "*"
+validator_collection = "*"
+psycopg2 = "*"

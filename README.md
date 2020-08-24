@@ -7,6 +7,10 @@ sudo systemctl start docker
 
 # Build docker images
 sudo docker build --rm -f "DockerfilePostgreSQL" -t get-all-links-database:latest .
+sudo docker build --rm -f "DockerfileApplication" -t collect_all_links:latest .
 
 # Start DataBase
 docker run --name get-all-links-database -e POSTGRES_PASSWORD=postgres -d get-all-links-database
+
+# Running the application
+docker run -it --link get-all-links-database:get-all-links-database collect_all_links
