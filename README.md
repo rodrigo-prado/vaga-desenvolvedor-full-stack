@@ -1,5 +1,6 @@
 # vaga-desenvolvedor-full-stack
-Repositório criado para o processo seletivo da vaga (Vaga Desenvolvedor Full Stack). O objetivo é avaliar os skills em desenvolvimento de aplicações.
+Repository created for the job selection process (Full Stack Developer Job).
+The objective is to evaluate skills in application development.
 
 # Start docker
 sudo systemctl start docker
