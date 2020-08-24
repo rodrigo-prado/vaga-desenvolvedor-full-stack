@@ -2,7 +2,6 @@
 
 import sys
 import argparse
-# import psycopg2
 import requests
 from bs4 import BeautifulSoup
 from validator_collection import checkers
