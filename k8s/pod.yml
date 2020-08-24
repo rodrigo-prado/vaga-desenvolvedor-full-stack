@@ -1,0 +1,17 @@
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: "collect-all-links"
+  namespace: "default"
+spec:
+  containers:
+    - image: "us.icr.io/collect-all-links/collect-all-links-database:latest"
+      name: "collect-all-links-database"
+    - image: "us.icr.io/collect-all-links/collect-all-links:latest"
+      name: "collect-all-links-application"
+      command:
+        - "/bin/bash"
+      args:
+        - "-c"
+        - "while true; do sleep 60; done"
