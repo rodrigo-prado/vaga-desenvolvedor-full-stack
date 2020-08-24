@@ -1,0 +1,4 @@
+FROM postgres:10
+
+# Sending DML instructions to be executed by postgres user in postgres database
+COPY database/create_link_table.sh docker-entrypoint-initdb.d

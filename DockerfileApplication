@@ -1,0 +1,32 @@
+FROM fedora:32
+
+# Installing and upgrading OS dependencies
+RUN dnf --best --allowerasing -y install java perl-devel python-devel && dnf clean all
+
+# Copying the source code
+ENV ROOT_DIR /root/collect_all_links/
+ENV PYTHONPATH ${ROOT_DIR}/src
+WORKDIR ${ROOT_DIR}
+
+# Installing and upgrading OS dependencies
+RUN dnf --best --allowerasing -y install \
+  pipenv \
+  libpq-devel \
+  postgresql \
+  gcc-c++ \
+  && dnf clean all
+
+# Installing and upgrading API dependencies
+COPY Pipfile ${ROOT_DIR}/
+RUN pipenv install --system --skip-lock --clear
+
+# Copying the source code
+COPY database.ini       ${ROOT_DIR}/
+COPY run_application.sh ${ROOT_DIR}/
+COPY run_tests.sh       ${ROOT_DIR}/
+COPY run_all.sh         ${ROOT_DIR}/
+COPY test               ${ROOT_DIR}/test
+COPY src                ${ROOT_DIR}/src
+
+# Calling API
+CMD ["./run_all.sh"]
